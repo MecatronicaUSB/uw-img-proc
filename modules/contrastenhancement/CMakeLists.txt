@@ -5,7 +5,7 @@ project(contrastenhancement)
 # Find OpenCV, you may need to set OpenCV_DIR variable
 # to the absolute path to the directory containing OpenCVConfig.cmake file
 # via the command line or GUI
-//set (OpenCV_DIR C:/opencv/build/x64/vc14/lib)
+# set (OpenCV_DIR C:/opencv/build/x64/vc14/lib)
 find_package(OpenCV REQUIRED)
 
 # If the package has been found, several variables will

@@ -36,6 +36,7 @@ int main(int argc, char *argv[]) {
 	String keys =
 		"{@input  |<none> | Input image file}"									// Input image is the first argument (positional)
 		"{@output |<none> | Output image file}"									// Output prefix is the second argument (positional)
+		"{m       |r      | Method}"											// Enhancement method to use
 		"{show    |       | Show matched features or not (ON: 1,OFF: 0)}"		// Show results (optional)
 		"{cuda    |       | Use CUDA or not (CUDA ON: 1, CUDA OFF: 0)}"         // Use CUDA (optional)
 		"{time    |       | Show time measurements or not (ON: 1, OFF: 0)}"		// Show time measurements (optional)
@@ -57,9 +58,14 @@ int main(int argc, char *argv[]) {
 		std::cout << "\t*-show=0 or -show=1 (ON: 1, OFF: 0)" << endl;
 		std::cout << "\t*-cuda=0 or -cuda=1 (ON: 1, OFF: 0)" << endl;
 		std::cout << "\t*-time=0 or -time=1 (ON: 1, OFF: 0)" << endl;
+		std::cout << "\t*Argument 'm=<method>' is a string containing a list of the desired method to use" << endl;
+		std::cout << endl << "Complete options of methods are:" << endl;
+		std::cout << "\t-m=L for GWA-Lab" << endl;
+		std::cout << "\t-m=C for GWA-CIELAB" << endl;
+		std::cout << "\t-m=R for GWA-RGB" << endl;
 		std::cout << endl << "Example:" << endl;
-		std::cout << "\tinput.jpg output.jpg -cuda=0 -time=0 -show=0" << endl;
-		std::cout << "\tThis will open 'input.jpg' correct the color and save it in 'output.jpg'" << endl << endl;
+		std::cout << "\tinput.jpg output.jpg -cuda=0 -time=0 -show=0 -m=L" << endl;
+		std::cout << "\tThis will open 'input.jpg' correct the color using GWA-Lab and save it in 'output.jpg'" << endl << endl;
 		return 0;
 	}
 
@@ -69,6 +75,7 @@ int main(int argc, char *argv[]) {
 
 	std::string InputFile = cvParser.get<cv::String>(0); // String containing the input file path+name+extension from cvParser function
 	std::string OutputFile = cvParser.get<cv::String>(1);// String containing the input file path+name+extension from cvParser function
+	std::string method = cvParser.get<cv::String>("m");	 // Gets argument -m=x, where 'x' is the enhancement method
 	std::string implementation;							 // CPU or GPU implementation
 	Show = cvParser.get<int>("show");					 // Gets argument -show=x, where 'x' defines if the results will show or not
 	Time = cvParser.get<int>("time");	                 // Gets argument -time=x, where 'x' defines ifexecution time will show or not
@@ -118,58 +125,63 @@ int main(int argc, char *argv[]) {
 		return -1;
 	}
 
-	std::cout << endl << "Applying color correction" << endl;
-
 	// Start time measurement
 	if (Time) t = (double)getTickCount();
 
 	// GPU Implementation
 #if USE_GPU
 	if (CUDA) {
-		GpuMat srcGPU, dstGPU, channelsGPU[3];
-		Mat R, G, B, L, a, b;
-
+		GpuMat srcGPU, dstGPU;
 		srcGPU.upload(src);
 
-		// Now, according to parameters provided at CLI calling time, we must split and process the image
+		switch (method[0]) {
 
-		// Split RGB channels (BGR for OpenCV)
-		cuda::split(srcGPU, channelsGPU);
+		case 'L':	// Lab
+			std::cout << endl << "Applying color correction using GWA-Lab" << endl;
+			dstGPU = GWA_Lab_GPU(srcGPU);
+			break;
 
-		// Transformation from RGB to laB color space
-		RGBtoLab(channelsGPU[2], channelsGPU[1], channelsGPU[0], &L, &a, &b);
+		case 'C':	// CIELAB
+			std::cout << endl << "Applying color correction using GWA-CIELAB" << endl;
+			dstGPU = GWA_CIELAB_GPU(srcGPU);
+			break;
 
-		// Gray world assumption (White balancing)
-		a = a - mean(a), b = b - mean(b);
+		case 'R':	// RGB
+			std::cout << endl << "Applying color correction using GWA-RGB" << endl;
+			dstGPU = GWA_RGB_GPU(srcGPU);
+			break;
 
-		// Corrected image is converted back to RGB
-		LaBtoRGB(L, a, b, &R, &G, &B);
-
-		R.convertTo(channelsGPU[2], CV_8U);
-		G.convertTo(channelsGPU[1], CV_8U);
-		B.convertTo(channelsGPU[0], CV_8U);
-
-		// Merges the RGB channels in one image (BGR for OpenCV)
-		cuda::merge(channelsGPU, 3, dstGPU);
-
+		default:	// Unrecognized Option
+			std::cout << "Option " << method[0] << " not recognized" << endl;
+			break;
+		}
 		dstGPU.download(dst);
 	}
 #endif
 
 	// CPU Implementation
 	if (! CUDA) {
-		// Transformation from RGB to laB color space
-		std::vector<Mat_<float>> Lab = BGRtoLab(src);
+		switch (method[0]) {
 
-		// Gray world assumption
-		Lab[1] = Lab[1] - mean(Lab[1]).val[0];
-		Lab[2] = Lab[2] - mean(Lab[2]).val[0];
-		//Lab[1] = Lab[1] - medianMat(Lab[1]);										// Using the median instead of the mean 
-		//Lab[2] = Lab[2] - medianMat(Lab[2]);										// Takes more time but in some cases gives better results
+		case 'L':	// Lab
+			std::cout << endl << "Applying color correction using GWA-Lab" << endl;
+			dst = GWA_Lab(src);
+		break;
 
-		// The color balanced image is converted back to BGR
-		std::vector<Mat_<uchar>> BGR = LabtoBGR(Lab);
-		merge(BGR, dst);
+		case 'C':	// CIELAB
+			std::cout << endl << "Applying color correction using GWA-CIELAB" << endl;
+			dst = GWA_CIELAB(src);
+		break;
+
+		case 'R':	// RGB
+			std::cout << endl << "Applying color correction using GWA-RGB" << endl;
+			dst = GWA_RGB(src);
+		break;
+
+		default:	// Unrecognized Option
+			std::cout << "Option " << method[0] << " not recognized" << endl;
+		break;
+		}
 	}
 
 	//  End time measurement (Showing time results is optional)

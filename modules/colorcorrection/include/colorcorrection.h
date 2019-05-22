@@ -55,4 +55,20 @@ std::vector<Mat_<uchar>> LabtoBGR(std::vector<Mat_<float>> Lab);
 */
 double medianMat(cv::Mat src);
 
-cv::Mat GWA_CLIELAB(cv::Mat src);
+cv::Mat GWA_Lab(cv::Mat src);
+
+cv::Mat GWA_CIELAB(cv::Mat src);
+
+cv::Mat GWA_RGB(cv::Mat src);
+
+#if USE_GPU
+	std::vector<cv::cuda::GpuMat> BGRtoLab_GPU(cv::cuda::GpuMat srcGPU)
+
+	cv::cuda::GpuMat LabtoBGR_GPU(std::vector<cv::cuda::GpuMat> Lab);
+
+	cv::cuda::GpuMat LabtoBGR_GPU(std::vector<cv::cuda::GpuMat> Lab);
+
+	cv::cuda::GpuMat GWA_Lab_GPU(cv::cuda::GpuMat srcGPU);
+
+	cv::cuda::GpuMat GWA_CIELAB_GPU(cv::cuda::GpuMat srcGPU);
+#endif

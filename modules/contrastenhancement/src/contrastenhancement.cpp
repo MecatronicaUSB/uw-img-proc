@@ -140,7 +140,6 @@ cv::cuda::GpuMat simplestColorBalanceGPU(cv::cuda::GpuMat srcGPU, float percent)
 		float max = flat.at<uchar>(0, ceil(flat.cols * (1.0 - percent / 100.0)));	// Maximum boundary
 		cv::cuda::subtract(result[i], min, result[i]);								// Pixel remapping
 		cv::cuda::multiply(result[i], 255.0 / (max - min), result[i]);
-		//https://docs.opencv.org/3.2.0/d8/d34/group__cudaarithm__elem.html#ga6eab60fc250059e2fda79c5636bd067f
 	}
 	cv::cuda::GpuMat dst;
 	cv::cuda::merge(result, 3, dst);

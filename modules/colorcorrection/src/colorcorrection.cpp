@@ -202,7 +202,7 @@ cv::Mat GWA_RGB(cv::Mat src) {
 		cv::cuda::split(LAB, lab);
 		vector<uchar> means;
 		double max;
-		minMaxLoc(lab[0], NULL, &max);
+		cv::cuda::minMax(lab[0], NULL, &max);
 		means.push_back(int(max));												// L -> Max(L)
 		means.push_back(mean(lab[1])[0]);										// a -> mean(a)
 		means.push_back(mean(lab[2])[0]);										// b -> mean(b)

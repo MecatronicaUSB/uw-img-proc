@@ -69,16 +69,14 @@ cv::Mat rayleighEqualization(cv::Mat src);
 
 #if USE_GPU
 
-cv::cuda::GpuMat simplestColorBalanceGPU(cv::cuda::GpuMat srcGPU, float percent);
+cv::cuda::GpuMat simplestColorBalance_GPU(cv::cuda::GpuMat srcGPU, float percent);
 
-void getHistogramGPU(cv::cuda::GpuMat *channel, cv::Mat *hist);
-
-cv::cuda::GpuMat histStretchGPU(cv::cuda::GpuMat srcGPU, float percent, int direction);
+cv::cuda::GpuMat histStretch_GPU(cv::cuda::GpuMat srcGPU, float percent, int direction);
 
 cv::cuda::GpuMat ICM_GPU(cv::cuda::GpuMat srcGPU, float percent);
 
 cv::cuda::GpuMat UCM_GPU(cv::cuda::GpuMat srcGPU, float percent);
 
-cv::cuda::GpuMat rayleighEqualizationGPU(cv::cuda::GpuMat srcGPU);
+cv::cuda::GpuMat rayleighEqualization_GPU(cv::cuda::GpuMat srcGPU);
 
 #endif

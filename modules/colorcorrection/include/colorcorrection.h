@@ -44,7 +44,7 @@ using namespace std;
 std::vector<Mat_<float>> BGRtoLab(cv::Mat src);
 
 /*
-	@brief		Transforms an image in laB color space to BGR
+	@brief		Transforms an image in Ruderman's laB color space to BGR
 	@function	std::vector<Mat_<uchar>> LaBtoBGR(std::vector<Mat_<float>> Lab)
 */
 std::vector<Mat_<uchar>> LabtoBGR(std::vector<Mat_<float>> Lab);
@@ -55,10 +55,22 @@ std::vector<Mat_<uchar>> LabtoBGR(std::vector<Mat_<float>> Lab);
 */
 double medianMat(cv::Mat src);
 
+/*
+	@brief		Corrects the color using the Grey World Assumption applied in Ruderman's Lab color space
+	@function	cv::Mat GWA_Lab(cv::Mat src)
+*/
 cv::Mat GWA_Lab(cv::Mat src);
 
+/*
+	@brief		Corrects the color using the Grey World Assumption applied in CIELAB color space
+	@function	cv::Mat GWA_CIELAB(cv::Mat src)
+*/
 cv::Mat GWA_CIELAB(cv::Mat src);
 
+/*
+	@brief		Corrects the color using the Grey World Assumption applied in RGB color space
+	@function	cv::Mat GWA_RGB(cv::Mat src)
+*/
 cv::Mat GWA_RGB(cv::Mat src);
 
 #if USE_GPU

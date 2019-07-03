@@ -127,14 +127,13 @@ cv::Mat rayleighEqualization(cv::Mat src) {
 }
 
 #if USE_GPU
-cv::cuda::GpuMat simplestColorBalanceGPU(cv::cuda::GpuMat srcGPU, float percent) {	// Simplest Color Balance
+cv::cuda::GpuMat simplestColorBalance_GPU(cv::cuda::GpuMat srcGPU, float percent) {	// Simplest Color Balance
 	std::vector<cv::cuda::GpuMat> channel;
 	split(srcGPU, channel);
 	cv::cuda::GpuMat flat, result[3];
 	for (int i = 0; i < 3; i++) {
 		flat = srcGPU.clone();														// Clone the matrix of each color channel
 		flat = flat.reshape(0, 1);													// Reshape the matrix to one column
-		//https://docs.opencv.org/3.2.0/d0/d60/classcv_1_1cuda_1_1GpuMat.html#a408e22ed824d1ddf59f58bda895017a8
 		cv::sort(flat, flat, SORT_EVERY_ROW + SORT_ASCENDING);						// Sort values from low to high
 		float min = flat.at<uchar>(0, floor(flat.cols * percent / 100.0));			// Minimum boundary
 		float max = flat.at<uchar>(0, ceil(flat.cols * (1.0 - percent / 100.0)));	// Maximum boundary
@@ -146,16 +145,11 @@ cv::cuda::GpuMat simplestColorBalanceGPU(cv::cuda::GpuMat srcGPU, float percent)
 	return dst;
 }
 
-void getHistogramGPU(cv::cuda::GpuMat *channel, cv::Mat *hist) {					// Computes the histogram of a single channel
-	int histSize = 256;
-	float range[] = { 0, 256 };														// The histograms ranges from 0 to 255
-	const float* histRange = { range };
-	cv::cuda::calcHist(channel, 1, 0, Mat(), *hist, 1, &histSize, &histRange, true, false);	//https://docs.opencv.org/3.2.0/d8/d0e/group__cudaimgproc__hist.html
-}
-
-cv::cuda::GpuMat histStretchGPU(cv::cuda::GpuMat srcGPU, float percent, int direction) {
+cv::cuda::GpuMat histStretch_GPU(cv::cuda::GpuMat srcGPU, float percent, int direction) {
+	cv::cuda::GpuMat hist;
 	cv::Mat histogram;
-	getHistogramGPU(&srcGPU, &histogram);
+	cv::cuda::calcHist(srcGPU, hist);
+	hist.download(histogram);
 	float percent_sum = 0.0, channel_min = -1.0, channel_max = -1.0;
 	float percent_min = percent / 100.0, percent_max = 1.0 - percent_min;
 	int i = 0;
@@ -204,7 +198,7 @@ cv::cuda::GpuMat UCM_GPU(cv::cuda::GpuMat srcGPU, float percent) {
 	cv::cuda::GpuMat channel[3];
 	cv::cuda::split(srcGPU, channel);
 	float means[3] = { mean(channel[0])[0], mean(channel[1])[0], mean(channel[2])[0] };	// Means of each channel
-	//else gpu::meanStdDev https://docs.opencv.org/2.4/modules/gpu/doc/matrix_reductions.html
+	//else cv::cuda::meanStdDev 
 	cv::Mat c, sorted;
 	c = Mat(1, 3, CV_32F, means);
 	sortIdx(c, sorted, SORT_EVERY_ROW + SORT_ASCENDING);								// Sorts means from low to high
@@ -231,7 +225,7 @@ cv::cuda::GpuMat UCM_GPU(cv::cuda::GpuMat srcGPU, float percent) {
 	return dst;
 }
 
-cv::cuda::GpuMat rayleighEqualizationGPU(cv::cuda::GpuMat srcGPU) {
+cv::cuda::GpuMat rayleighEqualization_GPU(cv::cuda::GpuMat srcGPU) {
 	cv::Mat histogram, src;
 	getHistogramGPU(&srcGPU, &histogram);
 	cv::Mat accumulated_hist = histogram.clone();										// Uses the image histogram to create the cumulative distribution function

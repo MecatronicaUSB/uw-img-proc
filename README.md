@@ -16,7 +16,7 @@ Implementation of Underwater Image/Video Enhancement using C++ AND OpenCV 3.2.
 - [colorcorrection](https://github.com/MecatronicaUSB/uw-img-proc/tree/master/modules/colorcorrection) Color correction module using the Gray World Assumption in different color spaces
 - [contrastenhancement](https://github.com/MecatronicaUSB/uw-img-proc/tree/master/modules/contrastenhancement) Contrast enhancement module using histogram stretching and equalization
 - [evaluationmetrics](https://github.com/MecatronicaUSB/uw-img-proc/tree/master/modules/evaluationmetrics) Image quality metrics module
-- [fusion](https://github.com/MecatronicaUSB/uw-img-proc/tree/master/modules/fusion) Multiscale image fusion
+- [fusion](https://github.com/MecatronicaUSB/uw-img-proc/tree/master/modules/fusion) Image fusion module using a multiscale approach
 - [illumination](https://github.com/MecatronicaUSB/uw-img-proc/tree/master/modules/illumination) Illumination correction module using a homomorphic high-pass filter
 - [videoenhancement](https://github.com/MecatronicaUSB/uw-img-proc/tree/master/modules/videoenhancement) Video enhancement module
 
@@ -44,7 +44,7 @@ git clone https://github.com/MecatronicaUSB/uw-img-proc.git
 
 ## Contributing
 
-Summary of contributing guidelines (based on those of OpenCV project):
+Summary of contributing guidelines:
 
 * One pull request per issue;
 * Choose the right base branch;
@@ -60,3 +60,4 @@ Released under the [GNU GPLv3.0 License](LICENSE).
 ## Authors and Contributors
 
 * **Geraldine Barreto** - [geraldinebc](https://github.com/geraldinebc)
+* **José Cappelletto** - [cappelletto](https://github.com/cappelletto)

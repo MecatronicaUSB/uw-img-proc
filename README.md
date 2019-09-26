@@ -1,6 +1,6 @@
-# Underwater Image Processing
+# Underwater Video and Image Processing
 
-Implementation of Underwater Image/Video Enhancement using C++ AND OpenCV 3.2.
+C++ implementation of underwater image and video enhancement using OpenCV 3.2.
 
 **uw-img-proc** is a free and open source software licensed under the [GNU GPLv3.0 License](https://en.wikipedia.org/wiki/GNU_General_Public_License), unless otherwise specified in particular modules or libraries (see LICENSE and README.md).
 

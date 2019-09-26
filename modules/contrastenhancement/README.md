@@ -1,17 +1,14 @@
 # Project: uw-img-proc
 # Module: contrastenhancement
 
-Module that enhances the contrast of images using histogram based approaches such as histogram stretching and equalization.
-Current OpenCV 3.2 implementation uses GPU acceleration for channel split/merge through CUDA library.
-
-The provided **cmake** file autodetects if CUDA is present, and enables GPU support.
+Module that enhances the contrast of images using histogram adjustment approaches such as histogram stretching and equalization.
+Current OpenCV 3.2 implementation does not support GPU acceleration.
 
 ## Getting Started
 
 ### Prerequisites
 
 * OpenCV 3.2
-* CUDA 8.0 (for GPU support)
 
 ### Installing
 
@@ -33,7 +30,7 @@ For detailed usage information and available options, please run the module with
 ```
 $ contrastenhancement input.jpg output.jpg -m=I -cuda=0 -time=1 -show=1
 ```
-This will open 'input.jpg' enhance the contrast using the method ICM (Integrated Color Model) and write it in 'output.jpg', while disabling GPU support, and showing total execution time as well as the comparison of the original and the color corrected images
+This will open 'input.jpg' enhance the contrast using the Integrated Color Model model (histogram stretching) and write it in 'output.jpg', while disabling GPU support, and showing total execution time as well as the comparison of the original and the color corrected images.
 
 ## Built With
 * [cmake 3+](https://cmake.org/) - cmake making it happen

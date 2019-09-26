@@ -139,7 +139,7 @@ int main(int argc, char *argv[]) {
 		vector<Mat_<uchar>> channels;
 
 		int i = 0, j = 0;
-		float n = FPS*8;
+		float n = FPS*7;
 
 		switch (method[0]) {
 

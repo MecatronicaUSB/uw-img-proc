@@ -1,6 +1,6 @@
 # Underwater Image Processing
 
-Implementation of Underwater Image/Video Enhancement. Using OpenCV 3.2.
+Implementation of Underwater Image/Video Enhancement using C++ AND OpenCV 3.2.
 
 **uw-img-proc** is a free and open source software licensed under the [GNU GPLv3.0 License](https://en.wikipedia.org/wiki/GNU_General_Public_License), unless otherwise specified in particular modules or libraries (see LICENSE and README.md).
 
@@ -13,11 +13,11 @@ Implementation of Underwater Image/Video Enhancement. Using OpenCV 3.2.
 - [License](#license)
 
 ## Modules list
-- [colorcorrection](https://github.com/MecatronicaUSB/uw-img-proc/tree/master/modules/colorcorrection) Color correction module using 3 versions of the Gray World Assumption
-- [contrastenhancement](https://github.com/MecatronicaUSB/uw-img-proc/tree/master/modules/contrastenhancement) Contrast enhancement module using histogram stretching/equalization
-- [evaluationmetrics](https://github.com/MecatronicaUSB/uw-img-proc/tree/master/modules/evaluationmetrics) Image Quality Metrics module
-- [fusion](https://github.com/MecatronicaUSB/uw-img-proc/tree/master/modules/fusion) Image warping and stitching
-- [illumination](https://github.com/MecatronicaUSB/uw-img-proc/tree/master/modules/illumination) Illumination correction module using a homomorphic filter
+- [colorcorrection](https://github.com/MecatronicaUSB/uw-img-proc/tree/master/modules/colorcorrection) Color correction module using the Gray World Assumption in different color spaces
+- [contrastenhancement](https://github.com/MecatronicaUSB/uw-img-proc/tree/master/modules/contrastenhancement) Contrast enhancement module using histogram stretching and equalization
+- [evaluationmetrics](https://github.com/MecatronicaUSB/uw-img-proc/tree/master/modules/evaluationmetrics) Image quality metrics module
+- [fusion](https://github.com/MecatronicaUSB/uw-img-proc/tree/master/modules/fusion) Multiscale image fusion
+- [illumination](https://github.com/MecatronicaUSB/uw-img-proc/tree/master/modules/illumination) Illumination correction module using a homomorphic high-pass filter
 - [videoenhancement](https://github.com/MecatronicaUSB/uw-img-proc/tree/master/modules/videoenhancement) Video enhancement module
 
 Each module contains information describing its usage, with a useful README file.

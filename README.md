@@ -1,4 +1,4 @@
-# Underwater Video and Image Processing
+# Underwater Image and Video Processing
 
 C++ implementation of underwater image and video enhancement using OpenCV 3.2.
 
@@ -20,7 +20,7 @@ C++ implementation of underwater image and video enhancement using OpenCV 3.2.
 - [illumination](https://github.com/MecatronicaUSB/uw-img-proc/tree/master/modules/illumination) Illumination correction module using a homomorphic high-pass filter
 - [videoenhancement](https://github.com/MecatronicaUSB/uw-img-proc/tree/master/modules/videoenhancement) Video enhancement module
 
-Each module contains information describing its usage, with a useful README file.
+Each module contains information describing its usage with a useful README file.
 
 ## Requirements
 

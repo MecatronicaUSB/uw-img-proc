@@ -139,7 +139,9 @@ int main(int argc, char *argv[]) {
 		vector<Mat_<uchar>> channels;
 
 		int i = 0, j = 0;
-		float n = FPS*7;
+		float n;
+		if (n_frames / FPS < 7) n = n_frames / FPS * 0.5;
+		else n = FPS * 7;
 
 		switch (method[0]) {
 
@@ -180,7 +182,7 @@ int main(int argc, char *argv[]) {
 						cap >> image;
 						if (image.empty()) {
 							for (int i = 0; i < (n - 1) / 2; i++) {
-								image_out = ICM(avgImg, frames[(n - 1) / 2 + i], 0.5);
+								image_out = ICM(avgImg, frames[(n - 1) / 2 + i], 0.3);
 								out << image_out;
 								if (Comp) {
 									hconcat(frames[(n - 1) / 2 + i], image_out, comparison);

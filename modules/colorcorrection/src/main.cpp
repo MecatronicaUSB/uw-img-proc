@@ -118,7 +118,7 @@ int main(int argc, char *argv[]) {
 	std::cout << "Output: " << OutputFile << endl;
 
 	cv::Mat src, dst;
-	src = imread(InputFile, CV_LOAD_IMAGE_COLOR);
+	src = imread(InputFile, IMREAD_COLOR);
 
 	if (src.empty()){
 		std::cout << "Error occured when loading the image" << endl << endl;

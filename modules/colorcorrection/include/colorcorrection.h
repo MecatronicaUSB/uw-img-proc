@@ -83,4 +83,6 @@ cv::Mat GWA_RGB(cv::Mat src);
 	cv::cuda::GpuMat GWA_Lab_GPU(cv::cuda::GpuMat srcGPU);
 
 	cv::cuda::GpuMat GWA_CIELAB_GPU(cv::cuda::GpuMat srcGPU);
+
+	cv::cuda::GpuMat GWA_RGB_GPU(cv::cuda::GpuMat srcGPU);
 #endif

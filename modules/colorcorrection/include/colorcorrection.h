@@ -74,7 +74,7 @@ cv::Mat GWA_CIELAB(cv::Mat src);
 cv::Mat GWA_RGB(cv::Mat src);
 
 #if USE_GPU
-	std::vector<cv::cuda::GpuMat> BGRtoLab_GPU(cv::cuda::GpuMat srcGPU)
+	std::vector<cv::cuda::GpuMat> BGRtoLab_GPU(cv::cuda::GpuMat srcGPU);
 
 	cv::cuda::GpuMat LabtoBGR_GPU(std::vector<cv::cuda::GpuMat> Lab);
 

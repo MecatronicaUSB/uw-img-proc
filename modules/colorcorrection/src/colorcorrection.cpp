@@ -29,9 +29,9 @@ std::vector<Mat_<float>> BGRtoLab(cv::Mat src) {
 
 	// ln(LMS)
 	cv::Mat_<float> lnL, lnM, lnS;
-	log(l, lnL);
-	log(m, lnM);
-	log(s, lnS);
+	cv::log(l, lnL);
+	cv::log(m, lnM);
+	cv::log(s, lnS);
 
 	std::vector<Mat_<float>> Lab;
 	// log(LMS) to Lab
@@ -84,7 +84,7 @@ cv::Mat GWA_Lab(cv::Mat src) {
 
 cv::Mat GWA_CIELAB(cv::Mat src) {
 	cv::Mat LAB, lab[3], MEANS, gwa, bgr[3], dst;
-	cvtColor(src, LAB, COLOR_BGR2Lab);										// Conversion to the Lab color space
+	cv::cvtColor(src, LAB, COLOR_BGR2Lab);										// Conversion to the Lab color space
 	split(LAB, lab);
 	vector<uchar> means;
 	double max;
@@ -93,7 +93,7 @@ cv::Mat GWA_CIELAB(cv::Mat src) {
 	means.push_back(mean(lab[1])[0]);										// a -> mean(a)
 	means.push_back(mean(lab[2])[0]);										// b -> mean(b)
 	merge(means, MEANS);
-	cvtColor(MEANS, gwa, COLOR_Lab2BGR);									// Conversion to the BGR color space
+	cv::cvtColor(MEANS, gwa, COLOR_Lab2BGR);									// Conversion to the BGR color space
 	split(src, bgr);
 	bgr[0] = 255 * bgr[0] / gwa.at<uchar>(0, 0);							// Gray World Assumption using the values calculated in CIELAB
 	bgr[1] = 255 * bgr[1] / gwa.at<uchar>(0, 1);
@@ -169,12 +169,15 @@ cv::Mat GWA_RGB(cv::Mat src) {
 
 		// log(LMS) to LMS -> c = 10^LMS is equivalent to c = e^(LMS*ln(10))
 		cv::cuda::GpuMat L, M, S;
-		cv::cuda::exp(logL*log(10), L);
+/*		cv::cuda::exp(logL*log(10), L);
 		cv::cuda::exp(logM*log(10), M);
-		cv::cuda::exp(logS*log(10), S);
+		cv::cuda::exp(logS*log(10), S);*/
+		cv::cuda::exp(logL, L);
+		cv::cuda::exp(logM, M);
+		cv::cuda::exp(logS, S);
 
 		// LMS to BGR
-		cv::cuda::GpuMat bgr[3];
+		cv::cuda::GpuMat bgr[3], BGR;
 		cv::cuda::addWeighted(L, 0.0497, M, -0.2439, 0.0, bgr[0]);
 		cv::cuda::addWeighted(bgr[0], 1.0, S, 1.2045, 0.0, bgr[0]);
 
@@ -192,7 +195,7 @@ cv::Mat GWA_RGB(cv::Mat src) {
 		std::vector<GpuMat> Lab = BGRtoLab_GPU(srcGPU);						// Transformation from BGR to laB color space
 		cv::cuda::subtract(Lab[1], mean(Lab[1])[0], Lab[1]);				// Gray world assumption (White balancing)
 		cv::cuda::subtract(Lab[2], mean(Lab[2])[0], Lab[2]);
-		cv::cuda::GpuMat dstGPU = LaBtoBGR_GPU(Lab);						// Corrected image is converted back to RGB
+		cv::cuda::GpuMat dstGPU = LabtoBGR_GPU(Lab);						// Corrected image is converted back to RGB
 	}
 
 	cv::cuda::GpuMat GWA_CIELAB_GPU(cv::cuda::GpuMat srcGPU) {
@@ -207,7 +210,7 @@ cv::Mat GWA_RGB(cv::Mat src) {
 		means.push_back(mean(lab[1])[0]);										// a -> mean(a)
 		means.push_back(mean(lab[2])[0]);										// b -> mean(b)
 		merge(means, MEANS);
-		cvtColor(MEANS, gwa, COLOR_Lab2BGR);									// Conversion to the BGR color space
+		cv::cuda::cvtColor(MEANS, gwa, cv::COLOR_Lab2BGR, 3);									// Conversion to the BGR color space
 		cv::cuda::split(srcGPU, bgr);
 		cv::cuda::multiply(bgr[0], 255 / gwa.at<uchar>(0, 0), bgr[0]);
 		cv::cuda::multiply(bgr[1], 255 / gwa.at<uchar>(0, 1), bgr[1]);
@@ -224,7 +227,7 @@ cv::Mat GWA_RGB(cv::Mat src) {
 		cv::cuda::multiply(channel[1], scale / mean(channel[1])[0], channel[1]);
 		cv::cuda::multiply(channel[2], scale / mean(channel[2])[0], channel[2]);
 		cv::cuda::GpuMat dstGPU;
-		cv::cuda::merge(channel, 3, dstGPU;
+		cv::cuda::merge(channel, 3, dstGPU);
 		return dstGPU;
 }
 #endif

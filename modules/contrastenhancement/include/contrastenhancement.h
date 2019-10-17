@@ -67,16 +67,26 @@ cv::Mat UCM(cv::Mat src, float percent);
 */
 cv::Mat rayleighEqualization(cv::Mat src);
 
+
+/*
+	@brief		Computes the histogram of a single channel
+	@function	void getHistogram(cv::Mat *channel, cv::Mat *hist)
+*/
+void getHistogram(cv::Mat *channel, cv::Mat *hist);
+
+
 #if USE_GPU
 
-cv::cuda::GpuMat simplestColorBalance_GPU(cv::cuda::GpuMat srcGPU, float percent);
+	cv::cuda::GpuMat simplestColorBalance_GPU(cv::cuda::GpuMat srcGPU, float percent);
 
-cv::cuda::GpuMat histStretch_GPU(cv::cuda::GpuMat srcGPU, float percent, int direction);
+	cv::cuda::GpuMat histStretch_GPU(cv::cuda::GpuMat srcGPU, float percent, int direction);
 
-cv::cuda::GpuMat ICM_GPU(cv::cuda::GpuMat srcGPU, float percent);
+	cv::cuda::GpuMat ICM_GPU(cv::cuda::GpuMat srcGPU, float percent);
 
-cv::cuda::GpuMat UCM_GPU(cv::cuda::GpuMat srcGPU, float percent);
+	cv::cuda::GpuMat UCM_GPU(cv::cuda::GpuMat srcGPU, float percent);
 
-cv::cuda::GpuMat rayleighEqualization_GPU(cv::cuda::GpuMat srcGPU);
+	cv::cuda::GpuMat rayleighEqualization_GPU(cv::cuda::GpuMat srcGPU);
+
+//	void getHistogram_GPU(cv::cuda::GpuMat *channel, cv::Mat *hist);
 
 #endif

@@ -120,7 +120,7 @@ int main(int argc, char *argv[]) {
 	std::cout << "Output: " << OutputFile << endl;
 
 	cv::Mat src, dst;
-	src = imread(InputFile, CV_LOAD_IMAGE_COLOR);
+	src = imread(InputFile, IMREAD_COLOR);
 
 	if (src.empty()){
 		std::cout << "Error occured when loading the image" << endl << endl;
@@ -140,7 +140,7 @@ int main(int argc, char *argv[]) {
 
 			case 'S':	// Simplest Color Balance
 				std::cout << endl << "Applying contrast enhancement using Simplest Color Balance" << endl;
-				dstGPU = simplestColorBalanceGPU(srcGPU, 0.5);
+				dstGPU = simplestColorBalance_GPU(srcGPU, 0.5);
 				break;
 
 			case 'I':	// Integrated Color Model
@@ -163,7 +163,7 @@ int main(int argc, char *argv[]) {
 			case 'R':	// Rayleigh Equalization
 				std::cout << endl << "Applying contrast enhancement using Rayleigh Equalization" << endl;
 				cv::cuda::split(srcGPU, channelsGPU);
-				for (int i = 0; i < 3; i++) channelsGPU[i] = rayleighEqualizationGPU(channelsGPU[i]);
+				for (int i = 0; i < 3; i++) channelsGPU[i] = rayleighEqualization_GPU(channelsGPU[i]);
 				cv::cuda::merge(channelsGPU, 3, dstGPU);
 				break;
 
@@ -201,7 +201,7 @@ int main(int argc, char *argv[]) {
 			case 'E':	// Normal Equalization
 				std::cout << endl << "Applying contrast enhancement using Normal Equalization" << endl;
 				split(src, channels);
-				for (int i = 0; i < 3; i++) equalizeHist(channels[i], channels[i]);
+				for (int i = 0; i < 3; i++) cv::equalizeHist(channels[i], channels[i]);
 				merge(channels, dst);
 			break;
 

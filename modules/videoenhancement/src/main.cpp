@@ -103,13 +103,13 @@ int main(int argc, char *argv[]) {
 	}
 
 	// Get the width/height frame count and the FPS of the video
-	int width = static_cast<int>(cap.get(CV_CAP_PROP_FRAME_WIDTH));
-	int height = static_cast<int>(cap.get(CV_CAP_PROP_FRAME_HEIGHT));
+	int width = static_cast<int>(cap.get(CAP_PROP_FRAME_WIDTH));
+	int height = static_cast<int>(cap.get(CAP_PROP_FRAME_HEIGHT));
 	int n_frames = int(cap.get(CAP_PROP_FRAME_COUNT));
-	double FPS = cap.get(CV_CAP_PROP_FPS);
+	double FPS = cap.get(CAP_PROP_FPS);
 
 	// Open a video file for writing the output
-	cv::VideoWriter out(OutputFile, CV_FOURCC('D', 'I', 'V', 'X'), FPS, cv::Size(width, height));
+	cv::VideoWriter out(OutputFile,cv::VideoWriter::fourcc('D', 'I', 'V', 'X'), FPS, cv::Size(width, height));
 	if (!out.isOpened()) {
 		std::cout << "\nError! Unable to open video file for the output video \n\n" << std::endl;
 		return -1;
@@ -120,7 +120,7 @@ int main(int argc, char *argv[]) {
 	Comparison.insert(filename, ext_comp);
 
 	// Open a video file for writing the comparison
-	cv::VideoWriter comp(Comparison, CV_FOURCC('D', 'I', 'V', 'X'), FPS, cv::Size(2 * width, height));
+	cv::VideoWriter comp(Comparison, cv::VideoWriter::fourcc('D', 'I', 'V', 'X'), FPS, cv::Size(2 * width, height));
 	if (!comp.isOpened()) {
 		std::cout << "\nError! Unable to open video file for the comparison video \n\n" << std::endl;
 		return -1;

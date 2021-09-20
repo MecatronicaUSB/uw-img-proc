@@ -111,7 +111,7 @@ int main(int argc, char *argv[]) {
 	std::cout << "Output: " << OutputFile << endl;
 
 	cv::Mat input, dst;
-	input = imread(InputFile, CV_LOAD_IMAGE_COLOR);
+	input = imread(InputFile, cv::IMREAD_COLOR);
 
 	if (input.empty()) {
 		std::cout << "Error occured when loading the image" << endl << endl;
@@ -134,9 +134,9 @@ int main(int argc, char *argv[]) {
 	// CPU Implementation
 	if (!CUDA) {
 		cv::Mat HSV, LAB, chanHSV[3], chanLAB[3];
-		cvtColor(input, HSV, CV_BGR2HSV);
+		cvtColor(input, HSV, cv::COLOR_BGR2HSV);
 		split(HSV, chanHSV);
-		cvtColor(input, LAB, CV_BGR2Lab);
+		cvtColor(input, LAB, cv::COLOR_BGR2Luv);
 		split(LAB, chanLAB);
 		Scalar meanS, stddevS, meanV, stddevV;
 		meanStdDev(chanHSV[1], meanS, stddevS);

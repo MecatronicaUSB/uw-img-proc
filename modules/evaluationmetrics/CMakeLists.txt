@@ -39,7 +39,7 @@ endif()
 
 # Declare the executable target built from your sources
 # If detect CUDA, then select GPU implementation as prefered method
-if(CUDA_FOUND)
+if(CUDA_FOUND AND USE_CUDA)
   set(FOUND_CUDA 1)
   add_definitions(-D USE_GPU)
   message(STATUS "Configuring for GPU version.")
@@ -50,7 +50,7 @@ if(CUDA_FOUND)
   ) 
   add_executable(evaluationmetrics ${evaluationmetrics-files})
   # Link your application with OpenCV libraries
-target_link_libraries(evaluationmetrics ${OpenCV_LIBS} ${CUDA_LIBRARIES})
+  target_link_libraries(evaluationmetrics ${OpenCV_LIBS} ${CUDA_LIBRARIES})
 else()
   set(FOUND_CUDA 0)
   message(STATUS "Configuring for non-GPU version.")
@@ -63,4 +63,4 @@ else()
   add_executable(evaluationmetrics ${evaluationmetrics-files})
   # Link your application with OpenCV libraries
   target_link_libraries(evaluationmetrics ${OpenCV_LIBS})
-endif(CUDA_FOUND)
+endif(CUDA_FOUND AND USE_CUDA)

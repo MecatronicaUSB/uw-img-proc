@@ -188,7 +188,7 @@ cv::cuda::GpuMat dehaze_GPU(std::vector<cv::cuda::GpuMat> channels, std::vector<
 	cv::cuda::subtract(255.0, B[0], C[0]);
 	cv::cuda::divide(C[0], trans, channels[0]);
 	cv::cuda::addWeighted(channels[1], 1, -A[1], 1.0 - trans, 0.0, B[1]);
-	cv::cuda::subtract(255.0, B[1], C[1]);
+	cv::cuda::substract(255.0, B[1], C[1]);
 	cv::cuda::divide(C[1], trans, channels[1]);
 	cv::cuda::subtract(channels[2], A[2], B[2]);
 	cv::cuda::divide(B[2], trans, C[2]);

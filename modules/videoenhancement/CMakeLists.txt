@@ -39,7 +39,7 @@ endif()
 
 # Declare the executable target built from your sources
 # If detect CUDA, then select GPU implementation as prefered method
-if(CUDA_FOUND)
+if(CUDA_FOUND AND USE_CUDA)
   set(FOUND_CUDA 1)
   add_definitions(-D USE_GPU)
   message(STATUS "Configuring for GPU version.")

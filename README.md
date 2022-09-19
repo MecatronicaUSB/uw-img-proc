@@ -3,7 +3,7 @@
 C++ implementation of underwater image and video enhancement using OpenCV 3.2.
 
 <p align="center">
-  <img src="https://github.com/Robotics-Technology/Underwater-Processing/tree/master/images/uw_enhancement.png"/>
+  <img src="https://github.com/Robotics-Technology/Underwater-Processing/blob/master/images/uw_enhancement.png"/>
 </p>
 
 ## Table of Contents
@@ -21,7 +21,7 @@ C++ implementation of underwater image and video enhancement using OpenCV 3.2.
 
 Color correction module using White World Assumption
 <p align="center">
-  <img src="https://github.com/roboTech-github/Underwater-Image-Processing/blob/master/images/unsupervised_color_correction.png"/>
+  <img src="https://github.com/Robotics-Technology/Underwater-Processing/blob/master/images/unsupervised_color_correction.png"/>
 </p>
 
 - [Contrast Enhancement](https://github.com/Robotics-Technology/Underwater-Processing/tree/master/modules/contrastenhancement)

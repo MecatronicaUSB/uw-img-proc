@@ -2,7 +2,9 @@
 
 C++ implementation of underwater image and video enhancement using OpenCV 3.2.
 
-**uw-img-proc** is a free and open source software licensed under the [GNU GPLv3.0 License](https://en.wikipedia.org/wiki/GNU_General_Public_License), unless otherwise specified in particular modules or libraries (see LICENSE and README.md).
+<p align="center">
+  <img src="https://github.com/Robotics-Technology/Underwater-Processing/blob/master/images/uw_enhancement.png"/>
+</p>
 
 ## Table of Contents
 - [Modules list](#modules-list)
@@ -11,31 +13,72 @@ C++ implementation of underwater image and video enhancement using OpenCV 3.2.
 - [Software details](#software-details)
 - [Contributing](#contributing)
 - [License](#license)
+- [Author](#author)
+- [Constributors](#constributors)
 
 ## Modules list
-- [colorcorrection](https://github.com/MecatronicaUSB/uw-img-proc/tree/master/modules/colorcorrection) Color correction module using the Gray World Assumption in different color spaces
-- [contrastenhancement](https://github.com/MecatronicaUSB/uw-img-proc/tree/master/modules/contrastenhancement) Contrast enhancement module using histogram stretching and equalization
-- [evaluationmetrics](https://github.com/MecatronicaUSB/uw-img-proc/tree/master/modules/evaluationmetrics) Image quality metrics module
-- [fusion](https://github.com/MecatronicaUSB/uw-img-proc/tree/master/modules/fusion) Image fusion module using a multiscale approach
-- [illumination](https://github.com/MecatronicaUSB/uw-img-proc/tree/master/modules/illumination) Illumination correction module using a homomorphic high-pass filter
-- [videoenhancement](https://github.com/MecatronicaUSB/uw-img-proc/tree/master/modules/videoenhancement) Video enhancement module
+- [Color Correction](https://github.com/Robotics-Technology/Underwater-Processing/tree/master/modules/colorcorrection)
 
-Each module contains information describing its usage with a useful README file.
+Color correction module using White World Assumption
+<p align="center">
+  <img src="https://github.com/Robotics-Technology/Underwater-Processing/blob/master/images/unsupervised_color_correction.png"/>
+</p>
+
+- [Contrast Enhancement](https://github.com/Robotics-Technology/Underwater-Processing/tree/master/modules/contrastenhancement)
+
+Contrast enhancement module using Histogram Stretching and Equalization using Rayleigh distribution 
+<p align="center">
+  <img src="https://github.com/Robotics-Technology/Underwater-Processing/blob/master/images/integrated_color_model.png"/>
+</p>
+
+- [Dehazing](https://github.com/Robotics-Technology/Underwater-Processing/tree/master/modules/contrastenhancement)
+
+Dehazing module using Bright Channel Prior
+<p align="center">
+  <img src="https://github.com/Robotics-Technology/Underwater-Processing/blob/master/images/dehazing.png"/>
+</p>
+
+- [Illumination](https://github.com/Robotics-Technology/Underwater-Processing/tree/master/modules/illumination) 
+
+Illumination correction module using a Homomorphic High-pass Filter
+<p align="center">
+  <img src="https://github.com/Robotics-Technology/Underwater-Processing/blob/master/images/homomorphic_filter.png"/>
+</p>
+
+- [Fusion](https://github.com/Robotics-Technology/Underwater-Processing/tree/master/modules/fusion)
+
+Image fusion module using a Multiscale approach
+<p align="center">
+  <img src="https://github.com/Robotics-Technology/Underwater-Processing/blob/master/images/fusion.png"/>
+</p>
+
+- [Video Enhancement](https://github.com/Robotics-Technology/Underwater-Processing/tree/master/modules/videoenhancement)
+
+Video enhancement module
+<p align="center">
+  <img src="https://github.com/Robotics-Technology/Underwater-Processing/blob/master/images/white_world_assumption.png"/>
+</p>
+
+- [Evaluation Metrics](https://github.com/Robotics-Technology/Underwater-Processing/tree/master/modules/evaluationmetrics)
+
+Image quality metrics module (Contrast, Entropy, Features, etc)
+<p align="center">
+  <img src="https://github.com/Robotics-Technology/Underwater-Processing/blob/master/images/rayleigh_equalization.png"/>
+</p>
 
 ## Requirements
 
 The current release has been developed and tested in Windows 10 64 bits
 
 - [OpenCV 3.2](http://opencv.org) and extra modules (OpenCV contrib 3.2).
-- [cmake 2.8](https://cmake.org/) - cmake making it happen again
+- [CMAKE 2.8](https://cmake.org/)
 
 ## Getting Started
 
 To start using this project, proceed to the standard *clone* procedure:
 
 ```bash
-cd <some_directory>
-git clone https://github.com/MecatronicaUSB/uw-img-proc.git
+git clone https://github.com/Robotics-Technology/Underwater-Processing.git
 ```
 
 ## Software Details
@@ -54,10 +97,14 @@ Summary of contributing guidelines:
 
 ## License
 
-Copyright (c) 2017-2018 Grupo de Investigación y Desarrollo en Mecatrónica (<mecatronica@usb.ve>).
-Released under the [GNU GPLv3.0 License](LICENSE). 
+**Underwater-Image-Processing** is a free and open source software licensed under the [GNU GPLv3.0 License](https://en.wikipedia.org/wiki/GNU_General_Public_License), unless otherwise specified in particular modules or libraries (see LICENSE and README.md).
 
-## Authors and Contributors
+Copyright (c) 2017-2018 Grupo de Investigación y Desarrollo en Mecatrónica (<mecatronica@usb.ve>).
+
+## Author
 
 * **Geraldine Barreto** - [geraldinebc](https://github.com/geraldinebc)
+
+## Contributors
+
 * **José Cappelletto** - [cappelletto](https://github.com/cappelletto)

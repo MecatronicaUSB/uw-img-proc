@@ -196,6 +196,7 @@ cv::Mat GWA_RGB(cv::Mat src) {
 		cv::cuda::subtract(Lab[1], mean(Lab[1])[0], Lab[1]);				// Gray world assumption (White balancing)
 		cv::cuda::subtract(Lab[2], mean(Lab[2])[0], Lab[2]);
 		cv::cuda::GpuMat dstGPU = LabtoBGR_GPU(Lab);						// Corrected image is converted back to RGB
+		return dstGPU;
 	}
 
 	cv::cuda::GpuMat GWA_CIELAB_GPU(cv::cuda::GpuMat srcGPU) {

@@ -11,10 +11,12 @@
  /********************************************************************/
  /* Created by:                                                      */
  /* Geraldine Barreto (@geraldinebc)                                 */
+ /* Collaborator:													 */
+ /* Jose Cappelletto (@cappelletto)									 */
 /*********************************************************************/
 
 /// Include auxiliary utility libraries
-#include "../include/colorcorrection.h"
+#include <colorcorrection.h>
 
 std::vector<Mat_<float>> BGRtoLab(cv::Mat src) {
 	src.convertTo(src, CV_32F);

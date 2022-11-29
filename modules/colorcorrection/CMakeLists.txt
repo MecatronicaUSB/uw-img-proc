@@ -48,12 +48,16 @@ if(CUDA_FOUND)
   message(STATUS "    include path: ${CUDA_INCLUDE_DIRS}")
 endif(CUDA_FOUND)
 
-if(CMAKE_VERSION VERSION_LESS "2.8.11")
-  # Add OpenCV headers location to your include paths
-  include_directories(${OpenCV_INCLUDE_DIRS})
-endif()
+# if(CMAKE_VERSION VERSION_LESS "2.8.11")
+#   # Add OpenCV headers location to your include paths
+#   include_directories(${OpenCV_INCLUDE_DIRS})
+# endif()
 
-# Declare the executable target built from your sources
+include_directories(include)
+# Add OpenCV headers location to your include paths
+include_directories(${OpenCV_INCLUDE_DIRS})# Add include directory
+
+  # Declare the executable target built from your sources
 # If detect CUDA, then select GPU implementation as prefered method
 if(CUDA_FOUND AND USE_CUDA)
   set(FOUND_CUDA 1)
@@ -64,9 +68,10 @@ if(CUDA_FOUND AND USE_CUDA)
     "src/main.cpp"
     "include/colorcorrection.h"
   ) 
+  #target main object
   add_executable(colorcorrection ${colorcorrection-files})
   # Link your application with OpenCV libraries
-target_link_libraries(colorcorrection ${OpenCV_LIBS} ${CUDA_LIBRARIES})
+  target_link_libraries(colorcorrection ${OpenCV_LIBS} ${CUDA_LIBRARIES})
 else()
   set(FOUND_CUDA 0)
   message(STATUS "Configuring for non-GPU version.")
@@ -80,3 +85,6 @@ else()
   # Link your application with OpenCV libraries
   target_link_libraries(colorcorrection ${OpenCV_LIBS})
 endif(CUDA_FOUND AND USE_CUDA)
+
+# Set a target installation path for the executable to use with make install
+install(TARGETS colorcorrection DESTINATION bin)

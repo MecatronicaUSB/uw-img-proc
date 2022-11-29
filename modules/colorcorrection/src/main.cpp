@@ -16,7 +16,7 @@
 #define ABOUT_STRING "Color Correction Module based on Ruderman's laB color space"
 
 /// Include auxiliary utility libraries
-#include "../include/colorcorrection.h"
+#include <colorcorrection.h>
 
 // Time measurements
 #define _VERBOSE_ON_

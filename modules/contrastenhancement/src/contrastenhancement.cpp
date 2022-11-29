@@ -89,8 +89,8 @@ cv::Mat ICM(cv::Mat src, float percent) {												// Integrated Color Model
 
 cv::Mat UCM(cv::Mat src, float percent) {
 	vector<Mat_<uchar>> channel;
-	split(src, channel);
-	float means[3] = { mean(channel[0])[0], mean(channel[1])[0], mean(channel[2])[0] };	// Means of each channel
+	cv::split(src, channel);
+	double means[3] = { mean(channel[0])[0], mean(channel[1])[0], mean(channel[2])[0] };	// Means of each channel
 	cv::Mat c, sorted;
 	c = Mat(1, 3, CV_32F, means);
 	sortIdx(c, sorted, SORT_EVERY_ROW + SORT_ASCENDING);								// Sorts means from low to high
@@ -197,12 +197,12 @@ cv::cuda::GpuMat histStretch_GPU(cv::cuda::GpuMat srcGPU, float percent, int dir
 	}
 
 	cv::cuda::GpuMat dst;
-	if (direction = 0) {
+	if (direction == 0) {
 		cv::cuda::subtract(srcGPU, channel_min, dst);										// Stretches the channel towards the Upper side
 		cv::cuda::multiply(dst, (255.0 - channel_min) / (channel_max - channel_min), dst);
 		cv::cuda::add(dst, channel_min, dst);
 	}
-	else if (direction = 2) {
+	else if (direction == 2) {
 		cv::cuda::subtract(srcGPU, channel_min, dst);										// Stretches the channel towards the Lower side
 		cv::cuda::multiply(dst, channel_max / (channel_max - channel_min), dst);
 	}
@@ -232,7 +232,7 @@ cv::cuda::GpuMat ICM_GPU(cv::cuda::GpuMat srcGPU, float percent) {						// Integ
 cv::cuda::GpuMat UCM_GPU(cv::cuda::GpuMat srcGPU, float percent) {
 	cv::cuda::GpuMat channel[3];
 	cv::cuda::split(srcGPU, channel);
-	float means[3] = { mean(channel[0])[0], mean(channel[1])[0], mean(channel[2])[0] };	// Means of each channel
+	double means[3] = { mean(channel[0])[0], mean(channel[1])[0], mean(channel[2])[0] };	// Means of each channel
 	//else cv::cuda::meanStdDev 
 	cv::Mat c, sorted;
 	c = Mat(1, 3, CV_32F, means);
